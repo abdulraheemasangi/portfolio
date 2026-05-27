@@ -2,7 +2,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import {
   SiDjango, SiNodedotjs, SiReact, SiPostgresql, SiMongodb, SiDocker,
-  SiHtml5, SiJavascript, SiPython,
+  SiHtml5, SiJavascript, SiPython, SiTailwindcss,
 } from 'react-icons/si';
 import { FaCss3Alt } from 'react-icons/fa';
 import SectionHeader from './SectionHeader';
@@ -11,6 +11,7 @@ import { skills } from '../data/portfolio';
 const TECH_ICONS = [
   { Icon: SiHtml5, color: '#e34f26', label: 'HTML' },
   { Icon: FaCss3Alt, color: '#1572b6', label: 'CSS' },
+  { Icon: SiTailwindcss, color: '#38bdf8', label: 'Tailwind CSS' },
   { Icon: SiJavascript, color: '#f7df1e', label: 'JavaScript' },
   { Icon: SiPython, color: '#3776ab', label: 'Python' },
   { Icon: SiDjango, color: '#092e20', label: 'Django' },

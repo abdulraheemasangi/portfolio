@@ -45,24 +45,24 @@ function EducationCard({ edu, index }) {
         transform: hovered ? 'translateY(-4px)' : 'none',
       }}
     >
-      <div className="glass rounded-2xl p-6 sm:p-7 h-full flex flex-col">
+      <div className="glass rounded-2xl p-6 sm:p-7 h-full flex flex-col justify-between">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
             {edu.icon === '🎓' ? <GradIcon /> : <EngineeringIcon />}
           </div>
-          <div>
+          <div className="flex-1">
             <h3 className="font-syne font-bold text-slate-900 text-base sm:text-lg leading-tight">
               {edu.degree}
             </h3>
             <p className="text-indigo-600 text-sm font-semibold mt-1">{edu.institution}</p>
             <p className="text-slate-500 text-xs mt-0.5">{edu.school}</p>
-            <div className="flex flex-wrap items-center gap-3 mt-4">
-              <span className="font-mono-custom text-xs px-2.5 py-1 rounded-md bg-violet-500/10 border border-violet-500/20 text-violet-600 font-medium">
-                {edu.period}
-              </span>
-              <span className="text-slate-500 text-xs">{edu.location}</span>
-            </div>
           </div>
+        </div>
+        <div className="flex flex-wrap items-center gap-3 mt-4 ml-16">
+          <span className="font-mono-custom text-xs px-2.5 py-1 rounded-md bg-violet-500/10 border border-violet-500/20 text-violet-600 font-medium">
+            {edu.period}
+          </span>
+          <span className="text-slate-500 text-xs">{edu.location}</span>
         </div>
       </div>
     </motion.div>

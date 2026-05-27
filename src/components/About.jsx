@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { FiMapPin, FiMail, FiPhone } from 'react-icons/fi';
 import SectionHeader from './SectionHeader';
 import { personalInfo } from '../data/portfolio';
@@ -70,6 +70,39 @@ function CodeBlock() {
   );
 }
 
+function StatCard({ stat, index, statsInView }) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      animate={statsInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: 0.08 + index * 0.12, duration: 0.5 }}
+      whileHover={{ scale: 1.04, y: -4 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="p-5 sm:p-6 rounded-2xl glass text-center group relative overflow-hidden transition-[border-color,box-shadow,transform] duration-300 flex flex-col items-center justify-center min-h-[125px]"
+      style={{
+        border: `1px solid ${hovered ? 'rgba(99, 102, 241, 0.25)' : 'rgba(15,23,42,0.08)'}`,
+        boxShadow: hovered ? '0 10px 30px rgba(99, 102, 241, 0.08)' : 'none',
+      }}
+    >
+      {/* Subtle overlay gradient on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+      {/* Numerical Value */}
+      <div className="text-3xl sm:text-4xl md:text-5xl font-black font-syne gradient-text mb-2 tracking-tight select-none relative z-10">
+        {stat.value}
+      </div>
+
+      {/* Label */}
+      <div className="text-slate-500 text-[10px] sm:text-[11px] uppercase tracking-wider font-mono-custom font-semibold select-none relative z-10">
+        {stat.label}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function About() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
@@ -78,7 +111,7 @@ export default function About() {
   const statsInView = useInView(statsRef, { once: true, margin: '-40px' });
 
   return (
-    <section id="about" className="section-padding relative">
+    <section id="about" className="section-padding !pt-0 relative">
       {/* Ambient accent */}
       <div
         className="absolute right-0 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full pointer-events-none"
@@ -152,23 +185,12 @@ export default function About() {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 mt-14 w-full"
         >
           {personalInfo.stats.map((stat, i) => (
-            <motion.div
+            <StatCard
               key={stat.label}
-              initial={{ opacity: 0, y: 28 }}
-              animate={statsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.08 + i * 0.12, duration: 0.5 }}
-              whileHover={{ scale: 1.04, y: -4 }}
-              className="p-5 sm:p-6 rounded-2xl glass text-center group relative overflow-hidden"
-              style={{ border: '1px solid rgba(15,23,42,0.08)' }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="text-3xl sm:text-4xl md:text-5xl font-black font-syne gradient-text mb-2 tracking-tight">
-                {stat.value}
-              </div>
-              <div className="text-slate-500 text-[11px] uppercase tracking-wider font-mono-custom font-semibold">
-                {stat.label}
-              </div>
-            </motion.div>
+              stat={stat}
+              index={i}
+              statsInView={statsInView}
+            />
           ))}
         </div>
       </div>
